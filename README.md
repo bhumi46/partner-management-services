@@ -24,7 +24,6 @@ The project requires JDK 1.11.
     $ cd <service folder>
     $ docker build -f Dockerfile
     ```
-
 ## Deploy
 To deploy PMS on Kubernetes cluster using Dockers refer to [Sandbox Deployment](https://docs.mosip.io/1.2.0/deployment/sandbox-deployment).
 
