@@ -135,7 +135,8 @@ jobs:
           server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
       - name: Create Maven settings.xml
-        run: echo '<settings><servers><server><id>ossrh</id><username>${{ secrets.OSSRH_USER }}</username><password>${{ secrets.OSSRH_SECRET }}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.executable>gpg</gpg.executable><gpg.passphrase>${{ secrets.GPG_SECRET }}</gpg.passphrase></properties><repositories><repository><id>central</id><url>https://repo.maven.apache.org/maven2</url></repository></repositories><pluginRepositories><pluginRepository><id>central</id><url>https://repo.maven.apache.org/maven2</url><releases><enabled>true</enabled></releases><snapshots><enabled>false</enabled></snapshots></pluginRepository></pluginRepositories></profile></profiles></settings>' > $GITHUB_WORKSPACE/settings.xml
+        run: echo '<settings><mirrors><mirror><id>ossrh-mirror</id><mirrorOf>*</mirrorOf><url>${OSSRH_URL}</url></mirror></mirrors><servers><server><id>ossrh</id><username>${OSSRH_USER}</username><password>${OSSRH_SECRET}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.executable>gpg</gpg.executable><gpg.passphrase>${GPG_SECRET}</gpg.passphrase></properties></profile></profiles></settings>' > $GITHUB_WORKSPACE/settings.xml
+
       - name: Build Automationtests with Maven
         run: |
           cd ${{ env.SERVICE_LOCATION}}
